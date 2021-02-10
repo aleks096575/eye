@@ -109,6 +109,7 @@
 		}
 		.tabs-nav__item {
 			text-align: center;
+			background-color: yellow;
 			color: maroon;
 			font-size: 33px;
 			font-weight: bolder;
@@ -117,9 +118,17 @@
 			border-bottom: 1px solid transparent;
 			cursor: pointer;
 		}
+		.tabs-nav__item:nth-child(2) {
+			border-left: 2px solid maroon;
+			border-right: 2px solid maroon;
+		}
 		.tabs-nav__item.is-active {
 			border-bottom: 9px solid #55a32a;
-
+			background-color: red !important;
+			transition: 0.4s ease-in-out;
+		}
+		.tabs-nav__item:hover {
+			background-color: orange;
 		}
 		.tab {
 			background-color: #f2f2f2;
@@ -232,9 +241,11 @@
 	  <div class="tabs">
 		<div class="tabs__nav tabs-nav">
 
-		<div class="tabs-nav__item is-active"  data-tab-name="tab-3">Tab 3</div>
+		<div class="tabs-nav__item is-active"  data-tab-name="tab-3">List of tasks that will be done or had been done.</div>
 
-			<div class="tabs-nav__item" data-tab-name="tab-4">Tab 4</div>
+			<div class="tabs-nav__item" data-tab-name="tab-4">Toggler to turn on or turn off.</div>
+
+			<div class="tabs-nav__item" data-tab-name='tab-5'>I spent large ammount of time on this.</div>
 
 		</div>
 
@@ -254,7 +265,7 @@
 			<div id="myDiv" class="header">
 		<h2>To Do app</h2>
 		<input type="text" id="myInput" placeholder="Title">
-		<span class="addBtn" onclick="newElement()">Add</span>
+		<span class="addBtn" id="sos">Add</span>
 	</div>
 
 	<ul id="myUl">
@@ -268,13 +279,21 @@
 	</div>
 
 		<div class="tab tab-4">
-			<h1>Forteen text</h1>
+			<h1>I have a great deal of work</h1>
 			<div class="shell">
 				<div class="btnn" onclick="this.classList.toggle('act')">
 					<div class="circle"></div>
 				</div>
 			</div>
 			<div id="info"></div>
+		</div>
+
+		<div class="tab tab-5">
+			<h1>Odessa is the great city in Ukraine</h1>
+			<p>Some text before that</p>
+			<a href="https://facebook.com"><img src="https://media-cdn.tripadvisor.com/media/photo-o/03/d4/a7/51/caption.jpg">
+			
+			</a>
 		</div>
 	</div>
 </div>
@@ -286,6 +305,12 @@
 
 	<script type="text/javascript">
 
+	var todoList = [];
+
+	if(localStorage.getItem('todo')!=undefined) {
+			todoList = JSON.parse(localStorage.getItem('todo'));
+
+		}
 
 	var x = document.getElementsByTagName('LI');
 
@@ -316,7 +341,8 @@
 		}
 	});
 
-	function newElement() {
+	var addTask = document.getElementById('sos');
+	addTask.addEventListener('click', function newElement() {
 		var li = document.createElement('li');
 		var inp = document.getElementById('myInput').value;
 		var t = document.createTextNode(inp);
@@ -327,6 +353,19 @@
 		else {
 		document.getElementById('myUl').appendChild(li);
 		}
+
+
+		var temp = {};
+		temp.todo = inp;
+		var ia = todoList.length;
+		todoList[ia] = temp;
+		console.log(todoList);
+		console.log(temp);
+		console.log(ia);
+		localStorage.setItem('todo', JSON.stringify(todoList));
+
+
+
 		document.getElementById('myInput').value ='';
 	 	var elem = document.createElement("span");
 		 var txt = document.createTextNode('\u00D7');
@@ -340,7 +379,8 @@
 	 		div.style.display = 'none';
 	 	}
 	  }
-	}
+	});
+	
 
 	let tab = function() {
 	let tabNav = document.querySelectorAll('.tabs-nav__item'),
@@ -357,7 +397,7 @@
 		this.classList.add('is-active');
 		tabName = this.getAttribute('data-tab-name');
 		selectTabContent(tabName);
-		console.log(tabNav);
+		console.log(tabName);
 	}
 	function selectTabContent(tabName) {
 		tabContent.forEach(item => {
@@ -370,7 +410,7 @@
 tab();
 
 var inf = document.getElementById('info');
-console.log(window.location);
+
 inf.textContent += 'Size this page: ' + window.outerWidth + ' on ' + window.outerHeight;
 
 var staa = false;
@@ -387,6 +427,8 @@ function toggle() {
 		staa = true;
 	}
 }
+
+	
 
 	</script>
 	
