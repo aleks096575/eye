@@ -185,6 +185,7 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
+			margin: 30px;
 		}
 		
 		.btnn {
@@ -216,7 +217,7 @@
 		 	font-size: 18px;
 		 	padding: 5px;
 		 }
-		 #ax {
+		#ax {
 		 	width: 333px;
 		 	height: 222px;
 		 }
@@ -240,6 +241,14 @@
 		input {
 			width: 100%;
 		}
+		}
+		#vid {
+			margin-top: 233px;
+		}
+		.bu {
+			margin: 44px;
+			color: beige;
+			background-color: navy;
 		}
 		
 	</style>
@@ -296,12 +305,18 @@
 				</div>
 			</div>
 			<div id="info"></div>
+			<div id="vid">
+				<video id="vidd">
+					<source src="trace.mp4" type="">
+				</video>
+				<button class="bu" onclick="playPause()">Play/Pause</button>
+			</div>
 		</div>
 
 		<div class="tab tab-5">
 			<h1>Odessa is the great city in Ukraine</h1>
 			<p>Some text before that</p>
-			<a href="https://facebook.com"><img id="ax" src="https://media-cdn.tripadvisor.com/media/photo-o/03/d4/a7/51/caption.jpg">
+			<a href="https://facebook.com" onmouseover="document.location='https://context.reverso.net'; return false"><img id="ax" src="https://media-cdn.tripadvisor.com/media/photo-o/03/d4/a7/51/caption.jpg">
 			
 			</a>
 		</div>
@@ -319,6 +334,7 @@
 
 	if(localStorage.getItem('todo')!=undefined) {
 			todoList = JSON.parse(localStorage.getItem('todo'));
+			console.log(todoList);
 
 		}
 
@@ -437,6 +453,13 @@ function toggle() {
 		staa = true;
 	}
 }
+
+	var v = document.getElementById('vidd');
+		function playPause() {
+			if(v.paused)
+				v.play();
+			else v.pause();
+		}
 
 	
 
